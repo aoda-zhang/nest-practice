@@ -17,3 +17,6 @@ $ npm run start:prod
 ## config配置
 ## swagger文档集成
 ## CRUD
+## 静态资源配置
+## 公共请求前缀设置
+## config的配置和获取
