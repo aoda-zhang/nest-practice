@@ -5,6 +5,7 @@ const initSwagger = (app: INestApplication) => {
   const swaggerTitle = app.get(ConfigService).get('SWAGGERTITLE') ?? '';
   const swaggerDesc = app.get(ConfigService).get('SWAGGERDESCRIPTION') ?? '';
   const swaggerVersion = app.get(ConfigService).get('SWAGGERVERSION') ?? '';
+  const swaggerPrefix = app.get(ConfigService).get('SWAGGERPREFIX') ?? '';
   const swaggerOptions = new DocumentBuilder()
     .setTitle(swaggerTitle)
     .setDescription(swaggerDesc)
@@ -12,6 +13,6 @@ const initSwagger = (app: INestApplication) => {
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, swaggerOptions);
-  SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup(swaggerPrefix, app, document);
 };
 export default initSwagger;
