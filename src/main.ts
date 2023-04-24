@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import initSwagger from './core/swagger';
+import initSwagger from './core/apiDoc';
 import helmet from 'helmet';
 import * as csurf from 'csurf';
 import { ConfigService } from '@nestjs/config';
