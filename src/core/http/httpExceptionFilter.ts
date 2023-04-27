@@ -11,14 +11,24 @@ export default class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp(); // 获取请求上下文
     const response = ctx.getResponse();
-    const status = exception.getStatus();
-
+    const errorRes = exception.getResponse();
+    
     // 设置错误信息
-    const message = exception.message
+    // @ts-ignore
+    const message = errorRes?.message
+      ? // @ts-ignore
+        errorRes?.message
+      : exception?.message
       ? exception.message
-      : `${status >= 500 ? 'Service Error' : 'Client Error'}`;
+      : 'Service error';
+
+    const status = exception.getStatus()
+      ? exception.getStatus()
+      : // @ts-ignore
+        errorRes?.statusCode ?? 400;
+
     const errorResponse: HttpResType = {
-      status: status ?? 400,
+      status,
       isSuccess: false,
       message,
       data: null,
@@ -27,3 +37,9 @@ export default class HttpExceptionFilter implements ExceptionFilter {
     response.send(errorResponse);
   }
 }
+
+type ErrorResType = {
+  statusCode: number;
+  message: string | string[];
+  error: string;
+};

@@ -34,7 +34,11 @@ export class AddressController {
   @ApiOperation({ summary: '添加用户' })
   @Post('add')
   @HttpCode(302)
-  addUser(@Body() body: CreateUserDTO) {
-    return this.userService.addUser(body);
+  async addUser(@Body() body: CreateUserDTO) {
+    if (body?.age > 18) {
+      throw new HttpException('未成年人不许进入', 403);
+    }
+
+    return await this.userService.addUser(body);
   }
 }
