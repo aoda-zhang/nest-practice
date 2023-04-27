@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import * as cookieParser from 'cookie-parser';
 import HttpExceptionFilter from './core/http/httpExceptionFilter';
 import HttpInterceptor from './core/http/httpInterceptor';
+import { ValidationPipe } from '@nestjs/common';
 const currentENV = process.env.NODE_ENV;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,6 +18,8 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
   // 全局成功拦截
   app.useGlobalInterceptors(new HttpInterceptor());
+  // 全局DTO验证
+  app.useGlobalPipes(new ValidationPipe());
   await initSwagger(app);
   app.enableCors(); // 跨域设置访问
   app.use(helmet()); //防止跨站脚本攻击等安全风险

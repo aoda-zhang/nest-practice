@@ -29,3 +29,4 @@ $ npm run start:prod
 ## 公共请求前缀设置
 ## config的配置和获取
 ## 全局路径别名
+## DTO 配合验证

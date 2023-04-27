@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AddressController } from './address.controller';
-import { AddressService } from './address.service';
+import { AddressController } from './user.controller';
+import { UserService } from './user.service';
 // const envPath=''
 @Module({
   // import other modules,then controller and service will import too
@@ -8,8 +8,8 @@ import { AddressService } from './address.service';
   // import current controller
   controllers: [AddressController],
   // import current service
-  providers: [AddressService],
+  providers: [UserService],
   // export the service
-  exports: [AddressService],
+  exports: [UserService],
 })
-export class AddressModule {}
+export class UserModule {}

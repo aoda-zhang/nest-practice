@@ -18,10 +18,10 @@ export default class HttpExceptionFilter implements ExceptionFilter {
       ? exception.message
       : `${status >= 500 ? 'Service Error' : 'Client Error'}`;
     const errorResponse: HttpResType = {
-      data: null,
-      message,
-      isSuccess: false,
       status: status ?? 400,
+      isSuccess: false,
+      message,
+      data: null,
     };
     response.status(status);
     response.send(errorResponse);

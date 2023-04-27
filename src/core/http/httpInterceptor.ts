@@ -15,10 +15,10 @@ export default class HttpInterceptor implements NestInterceptor {
         const status =
           context?.switchToHttp()?.getResponse()?.statusCode ?? 200;
         const successResponse: HttpResType = {
+          status,
           isSuccess: true,
           message: '请求成功',
           data,
-          status: status,
         };
         return successResponse;
       }),
