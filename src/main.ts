@@ -2,13 +2,11 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import initSwagger from './core/apiDoc';
 import helmet from 'helmet';
-import * as csurf from 'csurf';
 import { ConfigService } from '@nestjs/config';
 import * as cookieParser from 'cookie-parser';
 import HttpExceptionFilter from './core/http/httpExceptionFilter';
 import HttpInterceptor from './core/http/httpInterceptor';
 import { ValidationPipe } from '@nestjs/common';
-import { NextFunction } from 'express';
 const currentENV = process.env.NODE_ENV;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

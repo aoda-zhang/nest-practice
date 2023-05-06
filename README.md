@@ -30,3 +30,4 @@ $ npm run start:prod
 ## config的配置和获取
 ## 全局路径别名
 ## DTO 配合验证
+## 代码提交格式化
