@@ -9,12 +9,10 @@ const initSwagger = (app: INestApplication) => {
     const swaggerOptions = new DocumentBuilder()
         .setTitle(swaggerTitle)
         .setDescription(swaggerDesc)
-        .setVersion(swaggerVersion)
-        .addBearerAuth()
-        .build();
+        .setVersion(swaggerVersion).add;
+    BearerAuth().bu;
+    ild();
     const document = SwaggerModule.createDocument(app, swaggerOptions);
     SwaggerModule.setup(swaggerPrefix, app, document);
 };
-exp
-ort defa
-ult initSwagger;
+export default initSwagger;
