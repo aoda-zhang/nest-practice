@@ -6,7 +6,8 @@ import {
   IsEnum,
   IsNotEmpty,
   IsNumber,
-  IsPhoneNumber,
+  IsPhoneNumb
+  er,
   IsString,
   Max,
   MaxLength,
