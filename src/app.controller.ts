@@ -7,8 +7,6 @@ export class AppController {
 
     @Get()
     getHello(): string {
-        retu
-        rn this.appS
-        ervice.getHello();
+        return this.appService.getHello();
     }
 }
