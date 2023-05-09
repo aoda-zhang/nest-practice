@@ -1,6 +1,5 @@
 // keep   unique service
-export e
-num ServiceEnum {
+export enum ServiceEnum 
     'ADDRESS' = 'address',
     'USER' = 'address'
-}
+
