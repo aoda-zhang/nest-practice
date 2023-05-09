@@ -8,11 +8,9 @@ import {
     IsPhoneNumber,
     IsString,
     Max,
-    MaxLe
-    ngth,
+    MaxLength,
     Min,
-    MinL
-    ength
+    MinLength
 } from 'class-validator';
 
 export default class CreateUserDTO {
@@ -20,8 +18,7 @@ export default class CreateUserDTO {
     @ApiProperty({ description: '用户姓名', default: '二狗' }) // 默认值设置
     @IsNotEmpty({ message: '姓名为必填项' })
     @IsString()
-    @MinL
-    ength(2, { message: '姓名最小长度为2' })
+    @MinLength(2, { message: '姓名最小长度为2' })
     @MaxLength(10, { message: '姓名最大长度为10' })
     readonly name: string;
 
