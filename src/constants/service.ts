@@ -2,4 +2,4 @@
 export enum ServiceEnum {
   'ADDRESS' = 'address',
   'USER' = 'user',
-}
+
