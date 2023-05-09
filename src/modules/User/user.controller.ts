@@ -6,7 +6,7 @@ import {
     HttpException,
     Param,
     Post,
-    UseGuards
+    UseInterceptors
 } from '@nestjs/common';
 import { ServiceEnum } from 'src/constants/service';
 import { UserService } from './user.service';
