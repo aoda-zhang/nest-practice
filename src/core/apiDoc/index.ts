@@ -9,9 +9,9 @@ const initSwagger = (app: INestApplication) => {
     const swaggerOptions = new DocumentBuilder()
         .setTitle(swaggerTitle)
         .setDescription(swaggerDesc)
-        .setVersion(swaggerVersion).add;
-    BearerAuth().bu;
-    ild();
+        .setVersion(swaggerVersion)
+        .addBearerAuth()
+        .build();
     const document = SwaggerModule.createDocument(app, swaggerOptions);
     SwaggerModule.setup(swaggerPrefix, app, document);
 };
