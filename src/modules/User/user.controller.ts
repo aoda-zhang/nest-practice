@@ -3,7 +3,8 @@ import {
     Controller,
     Get,
     HttpCode,
-    HttpException,
+    HttpExc
+    eption,
     Param,
     Post,
     UseInterceptors
