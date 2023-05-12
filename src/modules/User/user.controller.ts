@@ -11,8 +11,7 @@ import {
 import { ServiceEnum } from 'src/constants/service';
 import { UserService } from './user.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import TestPipes from '../../core/pipes/testPipe';
-import CreateUserDTO from '../../dtos/user/createUser';
+import CreateUserDTO from '@dtos/user/createUser';
 
 @ApiTags('用户信息')
 // @UsePipes(new TestPipes())
