@@ -13,7 +13,6 @@
         "paths": {
             "@constants/*": ["./src/constants/*"],
             "@core/*": ["./src/core/*"],
-            "@dtos/*": ["./src/dtos/*"],
             "@modules/*": ["./src/modules/*"],
             "@schemas/*": ["./src/schemas/*"]
         },

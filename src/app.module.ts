@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from '@modules/User/user.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 // 当前环境变量
 const currentENV = process.env.NODE_ENV;
@@ -24,6 +25,7 @@ const currentENV = process.env.NODE_ENV;
             ttl: 60, //1分钟
             limit: 100 //请求100次
         }),
+        MongooseModule.forRoot('mongodb+srv://aoda2826:zyr199373.@aoda-db.nomzyht.mongodb.net/DEV'),
         UserModule
     ],
     controllers: [AppController],

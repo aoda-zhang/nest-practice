@@ -1,17 +1,8 @@
-import {
-    Body,
-    Controller,
-    Get,
-    HttpCode,
-    HttpException,
-    Param,
-    Post,
-    UseInterceptors
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpException, Param, Post } from '@nestjs/common';
 import { ServiceEnum } from 'src/constants/service';
 import { UserService } from './user.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import CreateUserDTO from '@dtos/user/createUser';
+import CreateUserDTO from '@modules/User/dtos/createUser';
 
 @ApiTags('用户信息')
 // @UsePipes(new TestPipes())
