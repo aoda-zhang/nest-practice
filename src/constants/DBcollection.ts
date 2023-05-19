@@ -1,5 +1,5 @@
 // keep   unique service
-export enum ServiceEnum {
+export enum DBCollectionEnum {
     'ADDRESS' = 'address',
-    'USER' = 'address'
+    'USER' = 'users'
 }
