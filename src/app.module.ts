@@ -1,14 +1,14 @@
-import { Module } from '@nestjs/common';
-import { APP_GUARD } from '@nestjs/core';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
-import { ConfigModule } from '@nestjs/config';
-import { UserModule } from '@modules/User/user.module';
-import { MongooseModule } from '@nestjs/mongoose';
+import { Module } from '@nestjs/common'
+import { APP_GUARD } from '@nestjs/core'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler'
+import { ConfigModule } from '@nestjs/config'
+import { UserModule } from '@modules/User/user.module'
+import { MongooseModule } from '@nestjs/mongoose'
 
 // 当前环境变量
-const currentENV = process.env.NODE_ENV;
+const currentENV = process.env.NODE_ENV
 
 @Module({
     // 所有子模块必须在app中注册，子模块如果有自己的module，可在imports中引入，app会自动注册controoler和service

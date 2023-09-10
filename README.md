@@ -58,7 +58,7 @@ export default class HttpExceptionFilter implements ExceptionFilter {
 
         const status = exception.getStatus()
             ? exception.getStatus()
-            : // @ts-ignore
+            :
               errorRes?.statusCode ?? 400;
 
         const errorResponse: HttpResType = {
@@ -104,8 +104,6 @@ export default class HttpInterceptor implements NestInterceptor {
     // 全局成功拦截
     app.useGlobalInterceptors(new HttpInterceptor());
 
-
-
 ```
 
 
@@ -139,9 +137,6 @@ export default initSwagger;
 // 入口方法main.ts中引入
 initSwagger(app);
 ```
-
-
-
 ## CRUD
 ## 静态资源配置
 ## 公共请求前缀设置
