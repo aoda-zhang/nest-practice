@@ -1,8 +1,8 @@
-import { DBCollectionEnum } from '@constants/DBcollection'
+import { DBCollectionEnum } from 'src/shared/constants/DBcollection'
 import CreateUserDTO from '@modules/User/dtos/createUser'
 import { HttpException, Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
-import { User, UserDoc } from '@schemas/user.schema'
+import { User, UserDoc } from 'src/shared/schemas/user.schema'
 import { Model } from 'mongoose'
 @Injectable()
 export class UserService {

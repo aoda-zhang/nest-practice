@@ -4,9 +4,9 @@ import helmet from 'helmet'
 import { ConfigService } from '@nestjs/config'
 import * as cookieParser from 'cookie-parser'
 import { ValidationPipe } from '@nestjs/common'
-import HttpExceptionFilter from '@core/http/httpExceptionFilter'
-import HttpInterceptor from '@core/http/httpInterceptor'
-import initSwagger from '@core/apiDoc'
+import HttpExceptionFilter from 'src/shared/core/http/httpExceptionFilter'
+import HttpInterceptor from 'src/shared/core/http/httpInterceptor'
+import initSwagger from 'src/shared/core/apiDoc'
 const currentENV = process.env.NODE_ENV
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)

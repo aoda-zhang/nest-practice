@@ -11,10 +11,10 @@
         "outDir": "./dist",
         "baseUrl": "./",
         "paths": {
-            "@constants/*": ["./src/constants/*"],
-            "@core/*": ["./src/core/*"],
+            "@constants/*": ["src/shared/constants/*"],
+            "@core/*": ["src/shared/core/*"],
             "@modules/*": ["./src/modules/*"],
-            "@schemas/*": ["./src/schemas/*"]
+            "@schemas/*": ["src/shared/schemas/*"]
         },
         "incremental": true,
         "skipLibCheck": true,

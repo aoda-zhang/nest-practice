@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common'
 import { AddressController } from './user.controller'
 import { UserService } from './user.service'
 import { MongooseModule } from '@nestjs/mongoose'
-import { UserSchema } from '@schemas/user.schema'
-import { DBCollectionEnum } from '@constants/DBcollection'
+import { UserSchema } from 'src/shared/schemas/user.schema'
+import { DBCollectionEnum } from 'src/shared/constants/DBcollection'
 @Module({
     // import other modules,then controller and service will import too
     imports: [MongooseModule.forFeature([{ name: DBCollectionEnum.USER, schema: UserSchema }])],
