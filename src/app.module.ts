@@ -6,19 +6,17 @@ import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler'
 import { ConfigModule } from '@nestjs/config'
 import { UserModule } from '@modules/User/user.module'
 import { MongooseModule } from '@nestjs/mongoose'
-
-// 当前环境变量
-const currentENV = process.env.NODE_ENV
-
+import getConfig from 'config'
 @Module({
     // 所有子模块必须在app中注册，子模块如果有自己的module，可在imports中引入，app会自动注册controoler和service
     // 如果子模块不存在自己的module，则需要在app中的controller中注册子模块controller，在app的privide中注册子模块的service
     imports: [
-        // 默认读取根目录的.env文件
+        // 加载config
         ConfigModule.forRoot({
-            envFilePath: `./config/env/${currentENV}.env`,
+            load: [getConfig],
             isGlobal: true, // 全局注入
-            cache: true // 是否缓存config
+            cache: true, // 是否缓存config
+            ignoreEnvFile: false // 取消读取env文件
         }),
         // API限速设置
         ThrottlerModule.forRoot({

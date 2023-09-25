@@ -10,8 +10,8 @@ import initSwagger from 'src/shared/core/apiDoc'
 const currentENV = process.env.NODE_ENV
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
-    const prefix = app.get(ConfigService).get('PREFIX') ?? ''
-    const port = app.get(ConfigService).get('PORT') ?? 3000
+    const prefix = app.get(ConfigService).get('prefix') ?? ''
+    const port = app.get(ConfigService).get('port') ?? 3000
     app.setGlobalPrefix(prefix) // 设置路径前缀
     // 全局错误过滤器
     app.useGlobalFilters(new HttpExceptionFilter())

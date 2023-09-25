@@ -1,8 +1,8 @@
 import { Body, Controller, Get, HttpCode, HttpException, Param, Post } from '@nestjs/common'
-import { DBCollectionEnum } from 'src/shared/constants/DBcollection'
 import { UserService } from './user.service'
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
 import CreateUserDTO from '@modules/User/dtos/createUser'
+import { DBCollectionEnum } from '@constants/DBcollection'
 
 @ApiTags('用户信息')
 // @UsePipes(new TestPipes())
