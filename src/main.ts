@@ -18,7 +18,12 @@ async function bootstrap() {
     // 全局成功拦截
     app.useGlobalInterceptors(new HttpInterceptor())
     // 全局DTO验证
-    app.useGlobalPipes(new ValidationPipe())
+    app.useGlobalPipes(
+        new ValidationPipe({
+            transform: true,
+            whitelist: true
+        })
+    )
     await initSwagger(app)
     app.enableCors() // 跨域设置访问
     app.use(helmet()) //防止跨站脚本攻击等安全风险
