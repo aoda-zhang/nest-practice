@@ -1,0 +1,13 @@
+{
+  "files.autoSave": "onWindowChange",
+  "files.autoSaveDelay": 1000,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.formatOnSave": true
+  }
+}
