@@ -4,7 +4,6 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler'
 import { ConfigModule, ConfigService } from '@nestjs/config'
-import { UserModule } from '@modules/User/user.module'
 import { MongooseModule } from '@nestjs/mongoose'
 import { AddressModule } from './modules/address/address.module'
 import getConfig from 'config'
@@ -21,32 +20,30 @@ import getConfig from 'config'
         }),
         // API限速设置
         ThrottlerModule.forRoot({
-            ttl: 60, //1分钟
-            limit: 100 //请求100次
+            // 100 times 1 minutes
+            ttl: 60,
+            limit: 100
         }),
         // mongodb数据库连接
         MongooseModule.forRootAsync({
             imports: [ConfigModule],
-            // 用于多个数据库连接时候指定连接名字
-            connectionName: 'serviceDB',
-            useFactory: (configService: ConfigService) => {
-                const serviceDBInfo = configService.get('serviceDB')
-                if (serviceDBInfo.uri) {
-                    return {
-                        uri: serviceDBInfo?.uri,
-                        useNewUrlParser: true,
-                        useUnifiedTopology: true
-                    }
+            // u need set DB name when there has multiple DB
+            // connectionName: 'serviceDB',
+            useFactory: async (configService: ConfigService) => {
+                return {
+                    uri: configService.get('serviceDB')?.uri ?? '',
+                    useNewUrlParser: true,
+                    useUnifiedTopology: true
                 }
-            }
+            },
+            inject: [ConfigService]
         }),
-        UserModule,
         AddressModule
     ],
     controllers: [AppController],
     providers: [
         AppService,
-        // 全局进行限速处理
+        // speed limit
         {
             provide: APP_GUARD,
             useClass: ThrottlerGuard

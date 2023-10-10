@@ -126,7 +126,7 @@ export default class HttpInterceptor implements NestInterceptor {
 
 ```ts
 2. 采用yaml的形式读取环境配置
-yarn add js-yaml 
+yarn add js-yaml
 yarn add @types/js-yaml -D
 // config/index.ts
 import { readFileSync } from 'fs'
@@ -219,8 +219,6 @@ app.setGlobalPrefix("全局前缀")
 // 1. 全局安装nest脚手架（自行百度）
 // 2. nest -h 查询具体命令
 ```
-
-
 
 ## API版本控制
 

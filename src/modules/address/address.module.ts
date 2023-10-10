@@ -2,14 +2,19 @@ import { Module } from '@nestjs/common'
 import { AddressService } from './address.service'
 import { AddressController } from './address.controller'
 import { MongooseModule } from '@nestjs/mongoose'
-import { DBCollectionEnum } from '@constants/DBcollection'
-import { AddressSchema } from '@schemas/address.schema'
+import { Address, AddressSchema } from '@schemas/address.schema'
 
 @Module({
     imports: [
-        MongooseModule.forFeature([{ name: DBCollectionEnum.ADDRESS, schema: AddressSchema }])
+        MongooseModule.forFeature([
+            {
+                name: Address.name, // schema name
+                schema: AddressSchema // DB schema
+            }
+        ])
     ],
     controllers: [AddressController],
-    providers: [AddressService]
+    providers: [AddressService],
+    exports: [AddressService]
 })
 export class AddressModule {}
