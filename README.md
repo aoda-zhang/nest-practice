@@ -20,11 +20,11 @@ $ npm run start:prod
     "compilerOptions": {
         "baseUrl": "./",
         "paths": {
-            "@constants/*": ["./src/constants/*"], // 根据自身项目选择必要的路径别名
-            "@core/*": ["./src/core/*"],
-            "@dtos/*": ["./src/dtos/*"],
+            // 根据自身项目选择必要的路径别名
+             "@constants/*": ["src/shared/constants/*"],,
+            "@core/*": ["src/shared/core/*"],
             "@modules/*": ["./src/modules/*"],
-            "@schemas/*": ["./src/schemas/*"]
+            "@schemas/*": ["src/shared/schemas/*"]
         },
     }
 }
@@ -206,8 +206,6 @@ initSwagger(app);
 // main.ts
 app.setGlobalPrefix("全局前缀")
 ```
-
-
 
 ## DTO 配合验证
 ## 代码提交格式化

@@ -5,9 +5,9 @@ import helmet from 'helmet'
 import { ConfigService } from '@nestjs/config'
 import * as cookieParser from 'cookie-parser'
 import { ValidationPipe } from '@nestjs/common'
-import initSwagger from 'src/shared/core/apiDoc'
-import HttpExceptionFilter from '@core/http/httpExceptionFilter'
-import HttpInterceptor from '@core/http/httpInterceptor'
+import HttpExceptionFilter from '@shared/http/httpExceptionFilter'
+import HttpInterceptor from '@shared/http/httpInterceptor'
+import initSwagger from '@shared/swagger'
 const currentENV = process.env.NODE_ENV
 async function bootstrap() {
     // 业务service建议express
@@ -31,6 +31,11 @@ async function bootstrap() {
     app.enableCors() // 跨域设置访问
     app.use(helmet()) //防止跨站脚本攻击等安全风险
     app.use(cookieParser())
+    // app.enableVersioning({
+    //     // API version control
+    //     defaultVersion: VERSION_NEUTRAL,
+    //     type: VersioningType.URI
+    // })
 
     await app.listen(port, () => {
         currentENV === 'dev' && console.log(`本地开发运行在 http://localhost:${port}`)

@@ -1,5 +1,5 @@
-import { DBCollectionEnum } from '@constants/DBcollection'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { DBCollectionEnum } from '@shared/constants/DBcollection'
 import mongoose, { Document } from 'mongoose'
 export type UserDoc = User & Document
 @Schema({ collection: DBCollectionEnum.USER })

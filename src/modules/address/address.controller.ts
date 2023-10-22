@@ -1,8 +1,8 @@
 import { Controller, Get, UseGuards } from '@nestjs/common'
 import { AddressService } from './address.service'
-import { RoleGuard } from '@core/guards/role.guard'
+import { RoleGuard } from 'src/shared/guards/role.guard'
 
-@Controller({ path: 'address', version: 'v1' })
+@Controller('address')
 @UseGuards(RoleGuard)
 export class AddressController {
     constructor(private readonly addressService: AddressService) {}
