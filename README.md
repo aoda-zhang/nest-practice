@@ -204,11 +204,6 @@ initSwagger(app);
 // main.ts
 app.setGlobalPrefix("全局前缀")
 ```
-
-## DTO 配合验证
-## 代码提交格式化
-## JWT设置 白名单设置
-
 ## 一键生成模块文件
 
 ```ts
