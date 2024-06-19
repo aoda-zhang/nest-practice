@@ -1,13 +1,25 @@
 {
-  "files.autoSave": "onWindowChange",
-  "files.autoSaveDelay": 1000,
-  "editor.tabSize": 2,
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true,
-  "[typescript]": {
-    "editor.formatOnSave": true
-  },
-  "[markdown]": {
-    "editor.formatOnSave": true
-  }
+    "files.autoSave": "onWindowChange",
+    "files.autoSaveDelay": 1000,
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.singleQuote": false,
+    "prettier.trailingComma": "all",
+    "eslint.validate": ["javascript", "typescript"],
+    "prettier.arrowParens": "avoid",
+    "prettier.printWidth": 80,
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[markdown]": {
+        "editor.formatOnSave": true
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    }
 }

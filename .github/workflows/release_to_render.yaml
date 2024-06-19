@@ -1,0 +1,41 @@
+name: Release to Render
+
+on:
+    workflow_dispatch:
+
+permissions:
+    security-events: write
+    actions: read
+    contents: read
+    issues: write
+
+jobs:
+    # CodeScan:
+    #     uses: aoda-zhang/shared-devops/.github/workflows/code_scan.yaml@master
+    #     with:
+    #         app_repository: ${{ github.repository }}
+
+    Build:
+        # needs: [CodeScan]
+        if: github.ref == 'refs/heads/main'
+        uses: aoda-zhang/shared-devops/.github/workflows/shared_build.yaml@master
+        with:
+            app_repository: ${{ github.repository }}
+            config_folder: honey-service
+            app_branch: main
+            build_name: honey-service-PROD
+            build_path: dist
+            build_script: build:PROD
+        secrets:
+            PAT: ${{ secrets.PAT }}
+
+    Deploy:
+        needs: [Build]
+        uses: aoda-zhang/shared-devops/.github/workflows/deploy_render.yaml@master
+        with:
+            build_name: honey-service-PROD
+            build_path: dist
+            currentEnvironment: PROD
+        secrets:
+            PAT: ${{ secrets.PAT }}
+            RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL_PROD }}

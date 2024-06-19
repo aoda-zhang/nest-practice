@@ -1,0 +1,54 @@
+name: Deploy to Azure service
+
+on:
+    push:
+        # branches: develop
+        # paths-ignore:
+        #     - '**/.github/**'
+        #     - '**/*.txt'
+
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: 'The environment to deploy'
+                required: true
+                type: choice
+                options: [UAT, TEST]
+                default: UAT
+
+permissions:
+    security-events: write
+    actions: read
+    contents: read
+    issues: write
+    id-token: write
+
+jobs:
+    Build:
+        if: github.ref != 'refs/heads/main'
+        uses: aoda-zhang/shared-devops/.github/workflows/shared_build.yaml@master
+        with:
+            app_repository: ${{ github.repository }}
+            app_branch: ${{ github.ref }}
+            config_folder: honey-service
+            currentEnvironment: ${{ inputs.environment || 'UAT'}}
+            build_name: honey-service-${{ inputs.environment || 'UAT'}}
+            build_script: build:${{ inputs.environment || 'UAT' }}
+            build_path: dist
+            isZipDeploy: YES
+        secrets:
+            PAT: ${{ secrets.PAT }}
+
+    Deploy:
+        needs: [Build]
+        uses: aoda-zhang/shared-devops/.github/workflows/deploy_azure_service.yaml@master
+        with:
+            currentEnvironment: ${{ inputs.environment || 'UAT'}}
+            build_name: honey-service-${{ inputs.environment || 'UAT'}}
+        secrets:
+            PAT: ${{ secrets.PAT }}
+            # AZURE_PPL: ${{ secrets.AZURE_PPL_UAT }}
+            azure_service_name: ${{ secrets.AZURE_SERVICE_NAME_UAT }}
+            AZURE_CLIENT_ID: ${{ secrets.AZUREAPPSERVICE_CLIENTID_AB9DCBD89ACB4501B5E1CBB6094CCD57 }}
+            AZURE_TENANT_ID: ${{ secrets.AZUREAPPSERVICE_TENANTID_6D70327DA34E45DC8B4DADFC87BCDA22 }}
+            AZURE_SUB_ID: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_AA8D3ED79BA84CF39216BF096CBC2AA2 }}

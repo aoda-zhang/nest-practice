@@ -1,0 +1,56 @@
+name: Deploy to Render
+
+on:
+    push:
+        branches: develop
+        paths-ignore:
+            - '**/.github/**'
+            - '**/*.txt'
+            - '**/*.MD'
+            - '**/*.md'
+
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: 'The environment to deploy'
+                required: true
+                type: choice
+                options: [UAT, TEST]
+                default: UAT
+
+permissions:
+    security-events: write
+    actions: read
+    contents: read
+    issues: write
+
+jobs:
+    # CodeScan:
+    #     uses: aoda-zhang/shared-devops/.github/workflows/code_scan.yaml@master
+    #     with:
+    #         app_repository: ${{ github.repository }}
+
+    Build:
+        # needs: [CodeScan]
+        if: github.ref != 'refs/heads/main'
+        uses: aoda-zhang/shared-devops/.github/workflows/shared_build.yaml@master
+        with:
+            app_repository: ${{ github.repository }}
+            config_folder: honey-service
+            app_branch: ${{ github.ref }}
+            build_name: honey-service-${{ inputs.environment || 'UAT' }}
+            build_path: dist
+            build_script: build:${{ inputs.environment || 'UAT' }}
+        secrets:
+            PAT: ${{ secrets.PAT }}
+
+    Deploy:
+        needs: [Build]
+        uses: aoda-zhang/shared-devops/.github/workflows/deploy_render.yaml@master
+        with:
+            build_name: honey-service-${{ inputs.environment || 'UAT' }}
+            build_path: dist
+            currentEnvironment: ${{ inputs.environment || 'UAT' }}
+        secrets:
+            PAT: ${{ secrets.PAT }}
+            RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL_UAT }}

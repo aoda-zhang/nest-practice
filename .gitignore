@@ -1,8 +1,10 @@
-# node_modules
 node_modules
-# dist
 dist
+build
 # config
-config/*.yaml
-# mac
+src/config/*
+!src/config/index.ts
+# local logs
+logs/*
+*.env
 .DS_Store

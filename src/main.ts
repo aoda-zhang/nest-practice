@@ -1,44 +1,49 @@
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
-import { AppModule } from './app.module'
 import helmet from 'helmet'
 import { ConfigService } from '@nestjs/config'
-import * as cookieParser from 'cookie-parser'
-import { ValidationPipe } from '@nestjs/common'
-import HttpExceptionFilter from '@shared/http/httpExceptionFilter'
-import HttpInterceptor from '@shared/http/httpInterceptor'
-import initSwagger from '@shared/swagger'
+import { ValidationPipe, VersioningType } from '@nestjs/common'
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface'
+import { Logger } from 'nestjs-pino'
+
+import initSwagger from '@shared/core/swagger'
+
+import { AppModule } from './app.module'
+
 const currentENV = process.env.NODE_ENV
 async function bootstrap() {
     // 业务service建议express
     // gateway 建议fastiy
-    const app = await NestFactory.create<NestExpressApplication>(AppModule)
-    const prefix = app.get(ConfigService).get('prefix') ?? ''
-    const port = app.get(ConfigService).get('port') ?? 3000
-    app.setGlobalPrefix(prefix) // 设置路径前缀
-    // 全局错误过滤器
-    app.useGlobalFilters(new HttpExceptionFilter())
-    // 全局成功拦截
-    app.useGlobalInterceptors(new HttpInterceptor())
-    // 全局DTO验证
+    const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+        bufferLogs: true
+    })
+    const corsOptions: CorsOptions = app.get(ConfigService).get('cors')
+    app.enableCors(corsOptions)
+    app.useLogger(app.get(Logger))
+    const prefix = app.get(ConfigService).get('http.prefix') ?? ''
+    app.setGlobalPrefix(prefix)
+    // Version control like v1 v2
+    app.enableVersioning({
+        type: VersioningType.URI
+    })
     app.useGlobalPipes(
         new ValidationPipe({
+            // 自动转换定义的字段类型
             transform: true,
+            // 清除dto中未定义的字段
             whitelist: true
         })
     )
     await initSwagger(app)
-    app.enableCors() // 跨域设置访问
-    app.use(helmet()) //防止跨站脚本攻击等安全风险
-    app.use(cookieParser())
-    // app.enableVersioning({
-    //     // API version control
-    //     defaultVersion: VERSION_NEUTRAL,
-    //     type: VersioningType.URI
-    // })
-
-    await app.listen(port, () => {
-        currentENV === 'dev' && console.log(`本地开发运行在 http://localhost:${port}`)
-    })
+    app.use(helmet()) // 防止跨站脚本攻击等安全风险
+    const port = app.get(ConfigService).get('http.port') ?? 3000
+    await app
+        .listen(port, () => {
+            // eslint-disable-next-line no-unused-expressions
+            currentENV === 'uat' && console.log(`本地开发运行在 http://localhost:${port}`)
+        })
+        .catch((error) => {
+            console.error(`应用启动异常:${error}`)
+        })
 }
 bootstrap()

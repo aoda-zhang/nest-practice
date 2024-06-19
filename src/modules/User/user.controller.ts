@@ -1,31 +1,16 @@
-import { Body, Controller, Get, HttpCode, HttpException, Param, Post } from '@nestjs/common'
-import { UserService } from './user.service'
-import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
-import CreateUserDTO from '@modules/User/dtos/createUser'
-import { DBCollectionEnum } from '@shared/constants/DBcollection'
+import { Body, Controller, Put, Req } from '@nestjs/common'
 
-@ApiTags('用户信息')
-// @UsePipes(new TestPipes())
-@Controller(DBCollectionEnum.USER)
-export class AddressController {
+import ACLPermissions from '@shared/decorators/ACL.decorator'
+
+import { UserService } from './user.service'
+
+@Controller('user')
+export class UserController {
     constructor(private userService: UserService) {}
 
-    @ApiOperation({ summary: '获取用户详情' })
-    @ApiParam({ name: 'id', description: '用户id' })
-    @Get('detail/:id')
-    // 自定义状态码，默认200
-    @HttpCode(201)
-    async getDetail(@Param() param: { id: string }) {
-        return await this.userService.getDetail(param?.id)
-    }
-
-    @ApiOperation({ summary: '添加用户' })
-    @Post('add')
-    @HttpCode(302)
-    async addUser(@Body() body: CreateUserDTO) {
-        if (body?.age < 18) {
-            throw new HttpException('未成年人不许进入', 403)
-        }
-        return await this.userService.addUser(body)
+    @ACLPermissions(['USER_ROLE_EDIT'])
+    @Put('/role/update')
+    addUserRoles(@Body() body: { userID: string; roles: string[] }) {
+        return this.userService.addUserRoles(body?.userID, body?.roles)
     }
 }

@@ -1,17 +1,22 @@
 import { Module } from '@nestjs/common'
-import { AddressController } from './user.controller'
-import { UserService } from './user.service'
 import { MongooseModule } from '@nestjs/mongoose'
-import { UserSchema } from 'src/shared/schemas/user.schema'
-import { DBCollectionEnum } from '@shared/constants/DBcollection'
+
+import { DBCollection } from '@shared/schemas/DBcollection'
+import { UserSchema } from '@shared/schemas/user.schema'
+import { RoleSchema } from '@shared/schemas/role.schema'
+
+import { UserController } from './user.controller'
+import { UserService } from './user.service'
+
 @Module({
-    // import other modules,then controller and service will import too
-    imports: [MongooseModule.forFeature([{ name: DBCollectionEnum.USER, schema: UserSchema }])],
-    // import current controller
-    controllers: [AddressController],
-    // import current service
+    imports: [
+        MongooseModule.forFeature([
+            { name: DBCollection.USER, schema: UserSchema },
+            { name: DBCollection.ROLE, schema: RoleSchema }
+        ])
+    ],
+    controllers: [UserController],
     providers: [UserService],
-    // export the service
     exports: [UserService]
 })
-export class UserModule {}
+export default class UserModule {}

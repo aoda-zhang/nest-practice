@@ -1,18 +1,19 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "declaration": true,
+        "declaration": false,
         "removeComments": true,
         "emitDecoratorMetadata": true,
+        "esModuleInterop": true,
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
         "target": "ES2022",
-        "sourceMap": true,
         "outDir": "./dist",
-        "baseUrl": "./",
+        "sourceMap": false,
+        "baseUrl": ".",
         "paths": {
             "@shared/*": ["src/shared/*"],
-            "@modules/*": ["./src/modules/*"]
+            "@modules/*": ["src/modules/*"]
         },
         "incremental": true,
         "skipLibCheck": true,

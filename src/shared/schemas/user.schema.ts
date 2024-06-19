@@ -1,43 +1,39 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { DBCollectionEnum } from '@shared/constants/DBcollection'
-import mongoose, { Document } from 'mongoose'
-export type UserDoc = User & Document
-@Schema({ collection: DBCollectionEnum.USER })
-export class User extends Document {
-    // 使用declare 覆盖自生成的字段
-    declare _id?: mongoose.Schema.Types.ObjectId
 
-    // 不需要向用户展示的字段 使用select
+import { DBCollection } from '@shared/schemas/DBcollection'
+
+import CommonSchema from './common.schema'
+
+@Schema({ collection: DBCollection.USER, timestamps: true })
+export class User extends CommonSchema {
     @Prop({
-        select: false
+        required: true,
+        unique: true,
+        type: String,
+        trim: true,
+        minlength: 2
     })
-    declare __v?: number
+    userName: string
 
     @Prop({
         required: true,
-        trim: true, // 两边去空
-        minlength: 2 // 最小长度为2
+        trim: true,
+        minlength: 2
     })
-    name: string
+    password: string
 
-    @Prop({ required: true })
-    age: number
-
-    // 全局转换为大写
-    @Prop({ uppercase: true })
-    sex: string
-
-    // select 为false，表示不给前端返回
-    @Prop({ select: false })
-    school: string
-
-    // 正则匹配邮件格式
     @Prop({
-        required: true
+        required: true,
+        unique: true,
+        type: String
     })
-    email: string
+    salt: string
 
-    @Prop({ required: true })
-    phone: string
+    @Prop({
+        required: true,
+        // type: String,
+        default: ['GUEST']
+    })
+    roles: string[]
 }
 export const UserSchema = SchemaFactory.createForClass(User)
