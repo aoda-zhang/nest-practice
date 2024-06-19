@@ -198,8 +198,6 @@ export default initSwagger;
 // 入口方法main.ts中引入
 initSwagger(app);
 ```
-## CRUD
-## 静态资源配置
 ## 公共请求前缀设置
 
 ```ts
@@ -225,16 +223,6 @@ app.setGlobalPrefix("全局前缀")
 // 可以直接在contrl中设置verstion来管理版本
 @Controller({ path:"app",version: '1' })
 ```
-
-## 第三方service应用
-
-## Redis使用
-
-## MQ使用
-
-## 健康检查
-## 文件上传
-## 文件下载
 
 
 
