@@ -1,0 +1,32 @@
+http:
+    env: uat
+    port: 8080
+    prefix: your value
+swagger:
+    title: 管理后台
+    version: 1.0
+    prefix: your value
+    description: 管理后台接口文档
+serviceDB:
+    name: your value
+    uri: your value
+cors:
+    allowedHeaders: [X-timestamp, Access-Token, Accept, Content-Type, X-Api-Key]
+    origins: your value
+    optionsSuccessStatus: 200
+    methods: [GET, POST, PUT, OPTIONS, HEAD, PATCH]
+limitation:
+    ttl: 60
+    limit: 1000
+auth:
+    secret: your value
+    ttl: 4h
+    refreshSecret: your value
+    refreshTTL: 3d
+    saltRounds: 10
+    privateKey: your value
+    requestGap: 120
+    enableHMAC: true
+    rootUser: your value
+ping:
+    url: your value

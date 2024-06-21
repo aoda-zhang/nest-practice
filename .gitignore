@@ -2,7 +2,8 @@ node_modules
 dist
 build
 # config
-src/config/*
+# WARN : Pls ignore your config files in your real project, this is ONLY config demo show!!!
+# src/config/*
 !src/config/index.ts
 # local logs
 logs/*
